@@ -1,0 +1,14 @@
+<table class="table table-hover">
+  <tbody>
+    <ng-template *ngFor="let cell of board.cells">
+      <tr  *ngFor="let row of cell.position.row">
+        <td *ngFor="let column of cell.position.column">
+          {{row}}{{column}}
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>
+
+
+
