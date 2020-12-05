@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   cors: true,
-  serverURL: 'https://localhost:44371/api/'
+  serverURL: 'https://localhost:5001/api/'
 };
 
 /*
