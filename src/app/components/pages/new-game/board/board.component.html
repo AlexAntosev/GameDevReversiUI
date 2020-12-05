@@ -1,12 +1,10 @@
-<table class="table table-hover">
+<table class="central">
   <tbody>
-    <ng-template *ngFor="let cell of board.cells">
-      <tr  *ngFor="let row of cell.position.row">
-        <td *ngFor="let column of cell.position.column">
-          {{row}}{{column}}
+      <tr *ngFor="let row of rowsCount" class="row">
+        <td *ngFor="let column of columnsCount" class="column">
+          <img [src]="getCellImagePath(row, column)">
         </td>
       </tr>
-    </ng-template>
   </tbody>
 </table>
 
