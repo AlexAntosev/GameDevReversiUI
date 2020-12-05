@@ -1,4 +1,4 @@
 <div>
   <h1>New Game</h1>
-  <board [board]="board"></board>
+  <board [board]="board" (makeTurnEventEmitter)="makeTurn($event)"></board>
 </div>

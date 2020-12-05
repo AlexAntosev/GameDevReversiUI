@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Board } from 'src/app/models/app/board/board';
 import { Cell } from 'src/app/models/app/board/cell';
 import { Color } from 'src/app/models/enums/color';
@@ -20,6 +20,9 @@ export class BoardComponent implements OnInit {
     this._board = value;
     this.cells = value.cells;
   }
+
+  @Output()
+  makeTurnEventEmitter: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
 
   cells: Cell[];
   rowsCount: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -47,5 +50,9 @@ export class BoardComponent implements OnInit {
     }
 
     return imagePath;
+  }
+
+  makeTurn(row: string, column: string) {
+    this.makeTurnEventEmitter.emit([row, column]);
   }
 }

@@ -9,6 +9,10 @@ export abstract class BaseRepository {
     return this.httpClient.get<T>(this.buildUrl(url));
   }
 
+  protected post(url: string, body: any) {
+    return this.httpClient.post(this.buildUrl(url), body);
+  }
+
   private buildUrl(url: string): string {
     var url = `${environment.serverURL}${url}`;
     return url;
