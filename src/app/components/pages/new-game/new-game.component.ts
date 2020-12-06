@@ -74,7 +74,7 @@ export class NewGameComponent implements OnInit {
    this.playersRequestedAction.execute();
   }
 
-  makeTurn(position: [string, string]) {
+  makeTurn(position: Position) {
     this.makeTurnAction.execute(position, this.currentPlayer.id);
   }
 }

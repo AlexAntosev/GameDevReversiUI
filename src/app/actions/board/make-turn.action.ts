@@ -4,6 +4,7 @@ import { PossibleMovesRequestedAction } from 'src/app/actions/board/possible-mov
 import { IAction } from 'src/app/actions/i-action';
 import { PlayerSwitchAction } from 'src/app/actions/players/player-switch.action';
 import { CheckWinnerAction } from 'src/app/actions/session/check-winner.action';
+import { Position } from 'src/app/models/app/board/position';
 import { BoardRepository } from 'src/app/repositories/board.repository';
 
 @Injectable()
@@ -16,8 +17,8 @@ export class MakeTurnAction implements IAction {
     private checkWinnerAction: CheckWinnerAction
   ) {}
 
-  execute(position: [string, string], playerId: string): void {
-    this.boardRepository.makeTurn(playerId, position[0], position[1])
+  execute(position: Position, playerId: string): void {
+    this.boardRepository.makeTurn(playerId, position)
     .subscribe(_ => {
       this.playerSwitchAction.execute();
       this.boardRequestedAction.execute();

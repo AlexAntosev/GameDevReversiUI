@@ -2,7 +2,7 @@
   <tbody>
       <tr *ngFor="let row of rowsCount" class="row">
         <td *ngFor="let column of columnsCount" class="column">
-          <img [src]="getCellImagePath(row, column)" (click)="makeTurn(row, column)">
+          <img [src]="getCellImagePath(column, row)" (click)="makeTurn(column, row)">
         </td>
       </tr>
   </tbody>

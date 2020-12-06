@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IBoard } from 'src/app/models/api/board/i-board';
 import { IPosition } from 'src/app/models/api/board/i-position';
 import { IWinner } from 'src/app/models/api/player/i-winner';
+import { Position } from 'src/app/models/app/board/position';
 import { BaseRepository } from 'src/app/repositories/base.repository';
 
 @Injectable()
@@ -16,10 +17,10 @@ export class BoardRepository extends BaseRepository {
     return this.get<IBoard>('board');
   }
 
-  makeTurn(playerId: string, row: string, column: string) {
+  makeTurn(playerId: string, position: Position) {
     var body = {
       playerId: playerId,
-      cell: row+column
+      cell: position.column+position.row
     }
     return this.post('board/make-turn', body);
   }

@@ -16,10 +16,10 @@ export class BoardComponent implements OnInit {
   possibleMoves: Position[];
 
   @Output()
-  makeTurnEventEmitter: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
+  makeTurnEventEmitter: EventEmitter<Position> = new EventEmitter<Position>();
 
-  rowsCount: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-  columnsCount: string[] = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  columnsCount: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+  rowsCount: string[] = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
   constructor() {
 
@@ -28,16 +28,16 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  getCellPosition(row: string, column: string){
+  getCellPosition(column: string, row: string){
     return this.board.cells.find(c => c.position.row === row && c.position.column === column).disk;
   }
 
-  getCellImagePath(row: string, column: string) {
+  getCellImagePath(column: string, row: string) {
     var imagePath = '../../../../../assets/EmptyDisk.png';
     if(this.possibleMoves && this.possibleMoves.some(c => c.row === row && c.column === column)){
       var imagePath = '../../../../../assets/PossibleDisk.png';
     }
-    var disk = this.getCellPosition(row, column);
+    var disk = this.getCellPosition(column, row);
     if(disk !== null && disk.color === Color.Dark) {
       imagePath = '../../../../../assets/DarkDisk.png';
     }
@@ -48,7 +48,10 @@ export class BoardComponent implements OnInit {
     return imagePath;
   }
 
-  makeTurn(row: string, column: string) {
-    this.makeTurnEventEmitter.emit([row, column]);
+  makeTurn(column: string, row: string) {
+    const position = new Position();
+    position.column = column;
+    position.row = row;
+    this.makeTurnEventEmitter.emit(position);
   }
 }
