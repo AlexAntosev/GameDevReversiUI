@@ -3,22 +3,22 @@ import { BoardRequestedAction } from 'src/app/actions/board/board-requested.acti
 import { PossibleMovesRequestedAction } from 'src/app/actions/board/possible-moves-requested.action';
 import { IAction } from 'src/app/actions/i-action';
 import { PlayerSwitchAction } from 'src/app/actions/players/player-switch.action';
-import { SessionRepository } from 'src/app/repositories/session.repository';
+import { BoardRepository } from 'src/app/repositories/board.repository';
 
 @Injectable()
 export class MakeTurnAction implements IAction {
   constructor(
-    private sessionRepository: SessionRepository,
+    private boardRepository: BoardRepository,
     private boardRequestedAction: BoardRequestedAction,
     private playerSwitchAction: PlayerSwitchAction,
     private possibleMovesRequestedAction: PossibleMovesRequestedAction
   ) {}
 
   execute(position: [string, string], playerId: string): void {
-    this.sessionRepository.makeTurn(playerId, position[0], position[1])
+    this.boardRepository.makeTurn(playerId, position[0], position[1])
     .subscribe(_ => {
-      this.boardRequestedAction.execute();
       this.playerSwitchAction.execute();
+      this.boardRequestedAction.execute();
       this.possibleMovesRequestedAction.execute();
     });
   }

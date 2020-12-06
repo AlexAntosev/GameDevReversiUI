@@ -6,13 +6,15 @@ import { Player } from 'src/app/models/app/player/player';
 export class PlayerService {
   mapToModel(player: IPlayer): Player {
     return {
-      id: player.id
+      id: player.id,
+      color: player.color
     };
   }
 
   mapToEntity(player: Player): IPlayer {
     return {
-      id: player.id
+      id: player.id,
+      color: player.color
     };
   }
 }

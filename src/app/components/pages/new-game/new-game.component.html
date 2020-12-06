@@ -1,8 +1,9 @@
 <div>
-  <h1>New Game</h1>
+  <player [player]="players[0]"></player>
   <board
     [board]="board"
     [possibleMoves]="possibleMoves"
     (makeTurnEventEmitter)="makeTurn($event)">
   </board>
+  <player [player]="players[1]"></player>
 </div>
