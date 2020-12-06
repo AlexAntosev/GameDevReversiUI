@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!winner.isWinnerPresent">
   <player [player]="players[0]"></player>
   <board
     [board]="board"
@@ -6,4 +6,7 @@
     (makeTurnEventEmitter)="makeTurn($event)">
   </board>
   <player [player]="players[1]"></player>
+</div>
+<div *ngIf="winner.isWinnerPresent">
+  <winner-popup [player]="winner.winner"></winner-popup>
 </div>

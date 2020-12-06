@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBoard } from 'src/app/models/api/board/i-board';
 import { IPosition } from 'src/app/models/api/board/i-position';
+import { IWinner } from 'src/app/models/api/player/i-winner';
 import { BaseRepository } from 'src/app/repositories/base.repository';
 
 @Injectable()
@@ -25,5 +26,9 @@ export class BoardRepository extends BaseRepository {
 
   getPossibleMoves(playerId: string): Observable<IPosition[]> {
     return this.get<IPosition[]>(`board/possible-moves/${playerId}`);
+  }
+
+  checkWinner(): Observable<IWinner> {
+    return this.get<IWinner>(`board/check-winner`);
   }
 }

@@ -6,6 +6,7 @@ import { PlayersRequestedAction } from 'src/app/actions/players/players-requeste
 import { Board } from 'src/app/models/app/board/board';
 import { Position } from 'src/app/models/app/board/position';
 import { Player } from 'src/app/models/app/player/player';
+import { Winner } from 'src/app/models/app/player/winner';
 import { Store } from 'src/app/stores/store';
 
 @Component({
@@ -26,6 +27,9 @@ export class NewGameComponent implements OnInit {
   currentPlayer$: Observable<Player>;
   currentPlayer: Player;
 
+  winner$: Observable<Winner>;
+  winner: Winner;
+
   constructor(
     store: Store,
     private boardRequestedAction: BoardRequestedAction,
@@ -35,6 +39,7 @@ export class NewGameComponent implements OnInit {
     this.players$ = store.pagesStore.newGame.players$;
     this.possibleMoves$ = store.pagesStore.newGame.possibleMoves$;
     this.currentPlayer$ = store.pagesStore.newGame.currentPlayer$;
+    this.winner$ = store.pagesStore.newGame.winner$;
   }
 
   ngOnInit() {
@@ -52,6 +57,10 @@ export class NewGameComponent implements OnInit {
     this.currentPlayer$.subscribe(currentPlayer => {
       this.currentPlayer = currentPlayer;
     });
+
+    this.winner$.subscribe(winner => {
+      this.winner = winner;
+    })
 
     this.getPlayers();
     this.getBoard();

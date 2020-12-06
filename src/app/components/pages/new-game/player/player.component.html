@@ -1,7 +1,8 @@
 <div class="central">
-  <h5>Player name: {{player.id}}</h5>
-  <h6>Color: {{player.color}}</h6>
-  <h6 *ngIf="isPlayerTurnNow">Turn now!</h6>
+  <h5>Player id: {{player.id}}</h5>
+  <h6>Color: {{getPlayerColor()}}</h6>
+  <h6 *ngIf="isPlayerTurnNow">Your turn now!</h6>
+  <button *ngIf="isPlayerTurnNow && isNoAvailableMoves"(click)="pass()">Pass</button>
 </div>
 
 
