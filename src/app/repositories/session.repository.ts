@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBoard } from 'src/app/models/api/board/i-board';
+import { IPosition } from 'src/app/models/api/board/i-position';
 import { IPlayer } from 'src/app/models/api/player/i-player';
 import { BaseRepository } from 'src/app/repositories/base.repository';
 
@@ -25,5 +26,9 @@ export class SessionRepository extends BaseRepository {
       cell: row+column
     }
     return this.post('session/make-turn', body);
+  }
+
+  getPossibleMoves(playerId: string): Observable<IPosition[]> {
+    return this.get<IPosition[]>(`session/possible-moves/${playerId}`);
   }
 }

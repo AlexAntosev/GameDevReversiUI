@@ -4,6 +4,7 @@ import { BoardRequestedAction } from 'src/app/actions/board/board-requested.acti
 import { MakeTurnAction } from 'src/app/actions/board/make-turn.action';
 import { PlayersRequestedAction } from 'src/app/actions/players/players-requested.action';
 import { Board } from 'src/app/models/app/board/board';
+import { Position } from 'src/app/models/app/board/position';
 import { Player } from 'src/app/models/app/player/player';
 import { Store } from 'src/app/stores/store';
 
@@ -14,10 +15,15 @@ import { Store } from 'src/app/stores/store';
 })
 export class NewGameComponent implements OnInit {
   board$: Observable<Board>;
-  players$: Observable<Player[]>;
   board: Board;
+
+  players$: Observable<Player[]>;
   players: Player[];
 
+  possibleMoves$: Observable<Position[]>;
+  possibleMoves: Position[];
+
+  currentPlayer$: Observable<Player>;
   currentPlayer: Player;
 
   constructor(
@@ -27,13 +33,24 @@ export class NewGameComponent implements OnInit {
     private makeTurnAction: MakeTurnAction) {
     this.board$ = store.pagesStore.newGame.board$;
     this.players$ = store.pagesStore.newGame.players$;
+    this.possibleMoves$ = store.pagesStore.newGame.possibleMoves$;
+    this.currentPlayer$ = store.pagesStore.newGame.currentPlayer$;
   }
 
   ngOnInit() {
     this.board$.subscribe(board => (this.board = board));
+
     this.players$.subscribe(players => {
       this.players = players;
       this.currentPlayer = this.players[1];
+    });
+
+    this.possibleMoves$.subscribe(possibleMoves => {
+      this.possibleMoves = possibleMoves;
+    });
+
+    this.currentPlayer$.subscribe(currentPlayer => {
+      this.currentPlayer = currentPlayer;
     });
 
     this.getPlayers();
@@ -50,15 +67,5 @@ export class NewGameComponent implements OnInit {
 
   makeTurn(position: [string, string]) {
     this.makeTurnAction.execute(position, this.currentPlayer.id);
-    this.switchPlayer();
-  }
-
-  switchPlayer() {
-    if(this.currentPlayer === this.players[0]) {
-      this.currentPlayer = this.players[1];
-    }
-    else {
-      this.currentPlayer = this.players[0];
-    }
   }
 }

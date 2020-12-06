@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Board } from 'src/app/models/app/board/board';
-import { Cell } from 'src/app/models/app/board/cell';
+import { Position } from 'src/app/models/app/board/position';
 import { Color } from 'src/app/models/enums/color';
 
 @Component({
@@ -9,22 +9,15 @@ import { Color } from 'src/app/models/enums/color';
   styleUrls: ['board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  _board: Board;
-
-  get board(): Board {
-    return this._board;
-  }
+  @Input()
+  board: Board;
 
   @Input()
-  set board(value: Board){
-    this._board = value;
-    this.cells = value.cells;
-  }
+  possibleMoves: Position[];
 
   @Output()
   makeTurnEventEmitter: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
 
-  cells: Cell[];
   rowsCount: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   columnsCount: string[] = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
@@ -41,6 +34,9 @@ export class BoardComponent implements OnInit {
 
   getCellImagePath(row: string, column: string) {
     var imagePath = '../../../../../assets/EmptyDisk.png';
+    if(this.possibleMoves && this.possibleMoves.some(c => c.row === row && c.column === column)){
+      var imagePath = '../../../../../assets/PossibleDisk.png';
+    }
     var disk = this.getCellPosition(row, column);
     if(disk !== null && disk.color === Color.Dark) {
       imagePath = '../../../../../assets/DarkDisk.png';
