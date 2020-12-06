@@ -9,7 +9,7 @@ export abstract class BaseRepository {
     return this.httpClient.get<T>(this.buildUrl(url));
   }
 
-  protected post(url: string, body: any) {
+  protected post(url: string, body?: any) {
     return this.httpClient.post(this.buildUrl(url), body);
   }
 
